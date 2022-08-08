@@ -21,7 +21,8 @@ def get_user_choice():
         if user_choice not in ['1','2','3']:
             print('Please enter 1, 2 or 3')
         else: break
-    return action[int(user_choice) - 1]
+    user_choice = action[int(user_choice) - 1]
+    return user_choice
 
 def get_winner(user_choice, computer_choice):
     #action = ['rock', 'paper', 'scissors']
