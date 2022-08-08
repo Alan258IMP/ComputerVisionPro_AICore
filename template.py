@@ -18,7 +18,7 @@ image = Image.open('<IMAGE_PATH>')
 size = (224, 224)
 image = ImageOps.fit(image, size, Image.ANTIALIAS)
 
-#turn the image into a numpy array
+# Turn the image into a numpy array
 image_array = np.asarray(image)
 # Normalize the image
 normalized_image_array = (image_array.astype(np.float32) / 127.0) - 1
