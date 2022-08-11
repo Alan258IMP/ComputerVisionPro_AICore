@@ -2,12 +2,12 @@
 # AICore 2022, all rights reserved
 
 '''
-This script contains all the classes & functions required for the Python 
-implementation of the "Rock, Paper & Scissors" game (with camera)
+This script is a Python implementation of the "Rock, Paper & Scissors" game (with camera)
 '''
 
 import random
 import time
+from tkinter import Y
 import cv2
 from keras.models import load_model
 import numpy as np
@@ -98,7 +98,7 @@ class RPS_game:
         # Countdown after user is ready
         print('')
         input('The camera is ready. Press enter to continue...')
-        countdown(2)
+        countdown(1)
         start_time = time.time()
         while time.time() < (start_time + duration):
             ret, frame = cap.read()
@@ -107,9 +107,11 @@ class RPS_game:
             normalized_image = (image_np.astype(np.float32) / 127.0) - 1 # Normalize the image
             data[0] = normalized_image
             prediction = model.predict(data)
+            cv2.putText(frame, '%.d'%(start_time + duration - time.time()), (40,100), cv2.FONT_HERSHEY_PLAIN, 8, (0,0,255), 3, cv2.LINE_AA)
+
             cv2.imshow('frame', frame)
 
-            print(prediction) # This is a numpy array with (1,4) shape (why is it nested in an empty array...)
+            #print(prediction) # This is a numpy array with (1,4) shape (why is it nested in an empty array...)
             #user_weight += prediction[0] # Don't do take multiple images + taking average stuff. Useless in this case
             #image_count += 1
 
@@ -182,6 +184,7 @@ class RPS_game:
         self.computer_choice = ''
         
         while self.user_choice not in action:
+            # Loop until valid input is given
             self.get_user_choice(camera, duration)
         self.get_computer_choice()
 
@@ -201,7 +204,7 @@ class RPS_game:
         self.computer_choice = ''
         self.round_count = 1
 
-def play_rps(victory_num = 3):
+def play_rps(victory_num = 3, duration = 3):
     '''
     Play the "Rock, Paper & Scissors" game.
     The game continues until one side get a set number of victories.
@@ -222,7 +225,7 @@ def play_rps(victory_num = 3):
     while True:
         game = RPS_game()
         while True:
-            game.new_round(camera)
+            game.new_round(camera, duration)
             if game.computer_victory == victory_num:
                 print('The computer has won %.d times! You lose!' %(victory_num))
                 break
@@ -233,5 +236,5 @@ def play_rps(victory_num = 3):
         if replay != 'r': break
 
 if __name__ == '__main__':
-    play_rps()
+    play_rps(victory_num = 3, duration = 3)
 
