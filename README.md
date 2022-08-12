@@ -14,14 +14,26 @@ I installed the necessary dependencies for this project including opencv-python,
 
 ## Milestone 4: Code the game 
 
-I coded the logic of the game in "manual_rps.py" file. This script lets the computer to randomly choose from rock, paper or scissors and then gets the choice of the user via keyboard input. Finally the script tells the user who wins the game.
+I coded the logic of the game in "manual_rps.py" file. This script lets the computer to randomly choose from rock, paper or scissors and then gets the choice of the user via keyboard input. Finally the script judges who wins the game using "get_winner()" function.
 
 ## Milestone 5: Use the camera to play the game
 
-We put everything together in "camera_rps.py" and rewrote the game in a class "RPS-game". This class contains "get_prediction()" method which is adapted from the example script "RPS-Template.py". The user will be asked to get the camera ready. The camera will then be active for 3 seconds and only the final image counts. Note that this method will return "nothing" if it cannot fit the image to rock / paper / scissors with more than 70% confidence.
+We put everything together in "camera_rps.py" and rewrote the game in a class "RPS-game". This class contains "get_prediction()" method which is adapted from the example script "RPS-Template.py". This method takes an image, normalize it to the desired size and compares it with the model ("keras_model.h5"). The user will be asked to get the camera ready, and then the camera will be active for 3 seconds and only the final image counts. Note that this method will return "nothing" if it cannot fit the image to rock / paper / scissors with more than 70% confidence.
 
-Finally, we code the procedure of the game in the "play_rps()" function. This function creates an instance of the "RPS-game" class and then run the game repeatedly until one side get more than a set amount of victories (3 by default).
+I created another method named "get_user_choice()" to get the choice of the user either via camera or keyboard. The logic of a single round of the game was then coded in the "new_round()" method which asks the user iteratively until a valid input ("rock", "paper" or "scissors") is given i.e. If the "get_prediction()" method returns "nothing", then the script will call the method (take the image) again.
+
+```python
+action = ['rock', 'paper', 'scissors']
+while self.user_choice not in action:
+    # Loop until valid input is given
+    self.get_user_choice()
+self.get_computer_choice()
+```
+
+Finally, we coded the procedure of the game in the "play_rps()" function. This function creates an instance of the "RPS-game" class and then run the game repeatedly until one side get more than a set amount of victories (3 by default).
 
 ## Notes
 
-If you are running the code on a device with Nvidia Graphic card, there is no need to install CUDA for this script to normally function, and all warning messages about "cudartxxx.dll file missing" can be safely ignored.
+1. If you are running the code on a device with Nvidia Graphic card, there is no need to install CUDA for this script to normally function, and all warning messages about "cudartxxx.dll file missing" can be safely ignored.
+
+2. As this is a public repo, example screenshots are removed from this documentation. Try the script out yourself!
