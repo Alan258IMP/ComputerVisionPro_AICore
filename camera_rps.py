@@ -7,7 +7,6 @@ This script is a Python implementation of the "Rock, Paper & Scissors" game (wit
 
 import random
 import time
-from tkinter import Y
 import cv2
 from keras.models import load_model
 import numpy as np
@@ -155,27 +154,13 @@ class RPS_game:
         if self.user_choice == self.computer_choice:
             print('Draw: Both you and computer chose ' + self.user_choice)
             return 'draw'
-        elif self.user_choice == 'rock':
-            if self.computer_choice == 'paper':
-                print('You lose this round: you choose rock and computer choose paper')
-                return 'lose'
-            else:
-                print('You win this round: you choose rock and computer choose scissors')
-                return 'win'
-        elif self.user_choice == 'paper':
-            if self.computer_choice == 'scissors':
-                print('You lose this round: you choose rock and computer choose scissors')
-                return 'lose'
-            else:
-                print('You win this round: you choose rock and computer choose paper')
-                return 'win'
+        elif (action.index(self.user_choice) - action.index(self.computer_choice) == 1)\
+            or (action.index(self.user_choice) - action.index(self.computer_choice) == -2):
+            print('You win this round: you choose %s and computer choose %s' %(self.user_choice, self.computer_choice))
+            return 'win'
         else:
-            if self.computer_choice == 'rock':
-                print('You lose this round: you choose scissors and computer choose rock')
-                return 'lose'
-            else:
-                print('You win this round: you choose scissors and computer choose paper')
-                return 'win'
+            print('You lose this round: you choose %s and computer choose %s' %(self.user_choice, self.computer_choice))
+            return 'lose'
     
     def new_round(self, camera = True, duration = 3):
         print('ROUND %.d' %(self.round_count))
