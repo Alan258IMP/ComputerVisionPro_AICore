@@ -2,7 +2,7 @@
 
 This Python project is an implementation of the "Rock, Paper, Scissors" game with camera. The model will take an image with the camera and recognize if it's rock, paper or scissors through a machine-learning model created with [Teachable-Machine](https://teachablemachine.withgoogle.com/ ).
 
-This project requires [opencv-python](https://github.com/opencv/opencv-python), [tensorflow](https://github.com/tensorflow) and [ipykernel](https://github.com/ipython/ipykernel) modules.
+This project requires [opencv-python](https://github.com/opencv/opencv-python) and [tensorflow](https://github.com/tensorflow).
 
 ## Milestone 1 & 2: Creating the machine-learning model
 
